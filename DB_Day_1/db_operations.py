@@ -25,13 +25,70 @@ class DB_operations:
       except sqlite3.IntegrityError:
          print("Phone or email alrady exit!!!")
 
+
+   def update_user(self,user_id:int,name:str,phone:str,email:str):
+      try:
+         self.cursor.execute("""
+     
+                       UPDATE USERS
+                       SET name=?,phone=?,email=?
+                       WHERE id=?
+     
+                           """,(name,phone,email,user_id))
+         self.conn.commit()
+         print("User updated succesfully!!")
+
+      except sqlite3.IntegrityError:
+         print("Update failed!! Phone or email already exist!!!")
+
+   def delete_user(self,user_id:int):
+      try:
+         self.cursor.execute("""
+         
+                          DELETE FROM USERS
+                          WHERE user_id=?
+         
+                              """,(user_id,))
+         self.conn.commit()
+         print("User deleted succesfully!!")
+      
+      except sqlite3.IntegrityError:
+         print("Delete failed!! User id does not exist!!!")
+
+
+   def search_user(self,search_term:str):
+      self.cursor.execute("""
+      
+                       SELECT * FROM USERS
+                       WHERE name LIKE ? OR phone LIKE ? OR email LIKE ?
+      
+                           """,(f'%{search_term}%',f'%{search_term}%',f'%{search_term}%'))
+      results = self.cursor.fetchall()
+      if results:
+         for row in results:
+            print(f"ID: {row[0]}, Name: {row[1]}, Phone: {row[2]}, Email: {row[3]}")
+      else:
+         print("No matching users found!!")
+
+   def display_all_users(self):
+      self.cursor.execute("""
+      
+                       SELECT * FROM USERS
+      
+                           """)
+      results = self.cursor.fetchall()
+      if results:
+         for row in results:
+            print(f"ID: {row[0]}, Name: {row[1]}, Phone: {row[2]}, Email: {row[3]}")
+      else:
+         print("No users found!!")
+
    def close_connection(self):
       print("Connection closed successfully!!")
       self.conn.close()
       
    
-   def display_user(self):
-      pass
+   
    
 
 

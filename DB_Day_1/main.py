@@ -7,7 +7,10 @@ while True:
   print("\n", "="*3, " MENU ", "="*3)
   print("1. Insert User:")
   print("2. Display User:")
-  print("3. Exit:")
+  print("3. Update User:")
+  print("4. Delete User:")
+  print("5. Search User:")
+  print("6. Exit:")
   print("="*30)
   choice = int(input("Enter your choice: "))
   if choice == 1:
@@ -16,7 +19,20 @@ while True:
     email = input("Enter email: ")
     obj2.insert_user(name, phone, email)
   elif choice == 2:
-    obj2.display_user()
+    obj2.display_all_users()
   elif choice == 3:
-    obj2.close_connection()
+    name = input("Enter name: ")
+    phone = input("Enter phone: ")
+    email = input("Enter email: ")
+    obj2.update_user(name, phone, email)
+  elif choice == 4:
+    user_id = int(input("Enter user id to delete: "))
+    obj2.delete_user(user_id)
+  elif choice == 5:
+    search_term = input("Enter name, phone or email to search: ")
+    obj2.search_user(search_term)
+  elif choice == 6:
+    print("Exiting...")
     break
+  else:
+    print("Invalid choice. Please try again.")

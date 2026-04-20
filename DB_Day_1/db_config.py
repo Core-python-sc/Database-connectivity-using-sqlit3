@@ -26,7 +26,6 @@ class Database_connection:
 
      ''')
     self.con.commit()
-    self.con.close()
     
 
 # def main():

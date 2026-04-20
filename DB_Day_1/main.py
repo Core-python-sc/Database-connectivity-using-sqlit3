@@ -21,10 +21,30 @@ while True:
   elif choice == 2:
     obj2.display_all_users()
   elif choice == 3:
-    name = input("Enter name: ")
-    phone = input("Enter phone: ")
-    email = input("Enter email: ")
-    obj2.update_user(name, phone, email)
+    user_id = int(input("Enter user id to update: "))
+
+    confirm = input("Do you want to update the name? (yes/no): ")
+    if confirm.lower() == "yes":
+        name = input("Enter name: ")
+    else:
+        print("Name update cancelled.")
+        name = None
+
+    confirm = input("Do you want to update the phone? (yes/no): ")
+    if confirm.lower() == "yes":
+        phone = input("Enter phone: ")
+    else:
+        print("Phone update cancelled.")
+        phone = None
+
+    confirm = input("Do you want to update the email? (yes/no): ")
+    if confirm.lower() == "yes":
+        email = input("Enter email: ")
+    else:
+        print("Email update cancelled.")
+        email = None
+   
+    obj2.update_user(user_id, name, phone, email)
   elif choice == 4:
     user_id = int(input("Enter user id to delete: "))
     obj2.delete_user(user_id)
@@ -33,6 +53,7 @@ while True:
     obj2.search_user(search_term)
   elif choice == 6:
     print("Exiting...")
+    obj2.close_connection()
     break
   else:
     print("Invalid choice. Please try again.")
